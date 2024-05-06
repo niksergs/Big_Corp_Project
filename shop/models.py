@@ -58,3 +58,15 @@ class Product(models.Model):
 
     # def get_absolute_url(self):
     #     return reverse('model_detail', kwargs={'pk': self.pk})
+
+
+class ProductManager(models.Manager):
+    def get_queryset(self):
+        return super(ProductManager, self).get_queryset().filter(available=True)
+
+
+class ProductProxy(Product):
+    object = ProductManager()
+
+    class Meta:
+        proxy = True
